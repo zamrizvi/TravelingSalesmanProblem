@@ -3,6 +3,7 @@
 
 import csv
 
+#printing out csv data to make sure it looks good
 def read_csv(file_path):
     with open(file_path) as csvfile:
         csvreader = csv.reader(csvfile)
