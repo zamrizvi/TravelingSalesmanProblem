@@ -10,4 +10,8 @@ def read_csv(file_path):
             print(row)
 
 csv_file_path = 'WGUPS Package File.csv'
+csv_file_two = 'addresses.csv'
+csv_file_three = 'distances.csv'
 read_csv(csv_file_path)
+read_csv(csv_file_two)
+read_csv(csv_file_three)
