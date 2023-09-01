@@ -11,28 +11,8 @@ from distances import calcCurrentDistance
 from distances import getAddress
 from package import Package
 
-"""
-#printing out csv data to make sure it looks good
-def read_csv(file_path):
-    with open(file_path) as csvfile:
-        csvreader = csv.reader(csvfile)
-        for row in csvreader:
-            print(row)
-
-csv_file_path = 'WGUPS Package File.csv'
-csv_file_two = 'addresses.csv'
-csv_file_three = 'distances.csv'
-read_csv(csv_file_path)
-read_csv(csv_file_two)
-read_csv(csv_file_three)
 
 
-#printing out packages from hashtable
-print("packages from hash table")
-
-for i in range(len(myHash.table) + 1):
-    print("Packages: {}".format(myHash.search(i + 1)))
-    """
 
 truckOne = truck.Truck("4001 South 700 East", datetime.timedelta(hours=8), 0.0,
                      [1, 13, 14, 15, 16, 20, 29, 30, 31, 34, 37, 40])
@@ -65,6 +45,8 @@ def deliveryAlgorithm(truck):
         truck.miles += nextAddress
         truck.location = nextPackage.address
         truck.departure += datetime.timedelta(hours=nextAddress / 18)
+        nextPackage.deliveryTime = truck.departure
+        nextPackage.departureTime = truck.departure
 
 deliveryAlgorithm(truckOne)
 deliveryAlgorithm(truckTwo)
@@ -72,26 +54,33 @@ deliveryAlgorithm(truckTwo)
 truckThree.departure = min(truckOne.departure, truckTwo.departure)
 deliveryAlgorithm(truckThree)
 
-print(truckOne.miles + truckTwo.miles + truckThree.miles)
 
 
-"""
-def greedyAlgorithm(packageList, truckNumber, currentlocation):
-    if len(packageList) == 0:
-        return packageList
 
-    lowestValue = 50.0
-    location = 0
+class Main:
+    print("WGUPS Package Tracker")
+    print("---------------------")
 
-    for i in packageList:
-        value = int(i[1])
-        if calcCurrentDistance(currentlocation, value) <= lowestValue:
-            lowestValue = calcCurrentDistance(currentlocation, value)
-            location = value
+    print("Total Milage: {:.2f} miles".format(truckOne.miles + truckTwo.miles + truckThree.miles))
 
-    for i in packageList:
-        if calcCurrentDistance(currentlocation, int(i[1])) == lowestValue:
-            if truckNumber == 1:
-                truckOne.append(i)
-"""
+    userTimeOne = input("Enter time 1:")
+    (h1, m1, s1) = userTimeOne.split(":")
+    userTimeTwo = input("Enter time 2:")
+    (h2, m2, s2) = userTimeTwo.split(":")
+    convertUserTimeOne = datetime.timedelta(hours=int(h1), minutes=int(m1), seconds=int(s1))
+    convertUserTimeTwo = datetime.timedelta(hours=int(h2), minutes=int(m2), seconds=int(s2))
+
+
+    for id in range(1, 41):
+        package = myHash.search(id)
+        if package.deliveryTime < convertUserTimeOne:
+            print(str(package))
+            print("Delivered")
+        elif package.deliveryTime > convertUserTimeOne and package.deliveryTime < convertUserTimeTwo:
+            print(str(package))
+            print("En Route")
+        else:
+            print(str(package))
+            print("At Hub")
+
 

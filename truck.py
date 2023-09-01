@@ -10,3 +10,4 @@ class Truck:
 
     def __str__(self):
         return "%s, %s, %s, %s" %(self.location, self.departure, self.miles, self.packages)
+

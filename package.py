@@ -1,7 +1,7 @@
 import csv
 from hashTable import HashTable
 class Package:
-    def __init__(self, id, address, city, state, zip, deadline, weight, status):
+    def __init__(self, id, address, city, state, zip, deadline, weight):
         self.id = id
         self.address = address
         self.city = city
@@ -9,11 +9,22 @@ class Package:
         self.zip = zip
         self.deadline = deadline
         self.weight = weight
-        self.status = status
+        self.deliveryTime = None
+        self.departureTime = None
 
     def __str__(self):
         return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.address, self.city, self.state, self.zip,
-                                                       self.deadline, self.weight, self.status)
+                                                       self.deadline, self.weight, self.deliveryTime)
+
+"""
+    def updateStatus(self, time):
+        if self.deliveryTime < time:
+            self.packageStatus = "Delivered"
+        elif self.departureTime > time:
+            self.packageStatus = "En Route"
+        else:
+            self.packageStatus = "At Hub"
+            """
 
 def loadPackageData(fileName):
     with open(fileName) as packages:
@@ -27,15 +38,17 @@ def loadPackageData(fileName):
             packageZip = package[4]
             packageDeadline = package[5]
             packageWeight = package[6]
-            packageStatus = package[7]
+
+
 
             pack = Package(packageId, packageAddress, packageCity, packageState, packageZip, packageDeadline,
-                           packageWeight, packageStatus)
+                           packageWeight)
 
             myHash.insert(packageId, pack)
 
-myHash = HashTable()
 
+
+myHash = HashTable()
 
 loadPackageData('WGUPS Package File.csv')
 
