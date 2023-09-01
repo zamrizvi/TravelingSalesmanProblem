@@ -52,5 +52,6 @@ class HashTable:
             if kv[0] == key:
                 bucket_list.remove([kv[0], kv[1]])
 
+    #created a method to pull the hash table
     def getHashTable(self):
         return HashTable

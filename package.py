@@ -16,16 +16,8 @@ class Package:
         return "%s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.address, self.city, self.state, self.zip,
                                                        self.deadline, self.weight, self.deliveryTime)
 
-"""
-    def updateStatus(self, time):
-        if self.deliveryTime < time:
-            self.packageStatus = "Delivered"
-        elif self.departureTime > time:
-            self.packageStatus = "En Route"
-        else:
-            self.packageStatus = "At Hub"
-            """
-
+#method to load data from the csv file into the package objects
+#insert each package into the hashtable
 def loadPackageData(fileName):
     with open(fileName) as packages:
         packageData = csv.reader(packages, delimiter=',')
@@ -47,9 +39,10 @@ def loadPackageData(fileName):
             myHash.insert(packageId, pack)
 
 
-
+#create a hashtable for packages
 myHash = HashTable()
 
+#calling the method with the WGUPS Package File.csv
 loadPackageData('WGUPS Package File.csv')
 
 
